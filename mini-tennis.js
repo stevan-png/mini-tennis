@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", function() {
   let ballRadius = 10;
   let ballX = canvas.width/2;
   let ballY = canvas.height/2;
-  let baseSpeed = 4;
+  let baseSpeed = 5; // légèrement plus rapide
   let dx = baseSpeed;
   let dy = -baseSpeed;
 
@@ -25,132 +25,9 @@ document.addEventListener("DOMContentLoaded", function() {
   let gameOver = false;
 
   const obstacles = [];
-  const obstacleWidth = 10;
-  const obstacleHeight = 10;
+  const obstacleWidth = 15;  // plus petits
+  const obstacleHeight = 15; // plus petits
 
   function drawRacket() {
     ctx.fillStyle = "#fff";
-    ctx.fillRect(racketX, canvas.height - racketHeight - 10, racketWidth, racketHeight);
-  }
-
-  function drawBall() {
-    ctx.beginPath();
-    ctx.arc(ballX, ballY, ballRadius, 0, Math.PI*2);
-    ctx.fillStyle = "#FFD700";
-    ctx.fill();
-    ctx.closePath();
-  }
-
-  function drawObstacles() {
-    ctx.fillStyle = "#8B0000";
-    obstacles.forEach(obs => {
-      ctx.fillRect(obs.x, obs.y, obstacleWidth, obstacleHeight);
-    });
-  }
-
-  document.addEventListener("keydown", e => {
-    if(e.key === "ArrowLeft") racketX -= 25;
-    if(e.key === "ArrowRight") racketX += 25;
-    if(racketX < 0) racketX = 0;
-    if(racketX + racketWidth > canvas.width) racketX = canvas.width - racketWidth;
-  });
-
-  function resetBall() {
-    ballX = canvas.width/2;
-    ballY = canvas.height/2;
-    dx = baseSpeed * (Math.random() > 0.5 ? 1 : -1);
-    dy = -baseSpeed;
-  }
-
-  function spawnObstacle() {
-    if(Math.random() < 0.01) {
-      const x = Math.random() * (canvas.width - obstacleWidth);
-      obstacles.push({x:x, y:0});
-    }
-  }
-
-  function moveObstacles() {
-    obstacles.forEach((obs, i) => {
-      obs.y += 2 + level;
-      if(obs.y > canvas.height) obstacles.splice(i,1);
-    });
-  }
-
-  function checkObstacleCollision() {
-    for(let obs of obstacles) {
-      if(ballX + ballRadius > obs.x &&
-         ballX - ballRadius < obs.x + obstacleWidth &&
-         ballY + ballRadius > obs.y &&
-         ballY - ballRadius < obs.y + obstacleHeight){
-        gameOver = true;
-        status.innerText = "💥 Game Over (obstacle touché) !";
-      }
-    }
-  }
-
-  function updateLevel() {
-    level = Math.floor(score/5)+1;
-    levelElem.innerText = level;
-    baseSpeed = 4 + (level-1);
-  }
-
-  function draw() {
-    if(gameOver) return;
-
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-    drawRacket();
-    drawBall();
-    drawObstacles();
-
-    ballX += dx;
-    ballY += dy;
-
-    if(ballX + ballRadius > canvas.width || ballX - ballRadius < 0) dx = -dx;
-    if(ballY - ballRadius < 0) dy = -dy;
-
-    if(ballY + ballRadius > canvas.height - racketHeight - 10 &&
-       ballX > racketX && ballX < racketX + racketWidth) {
-      dy = -dy;
-      let hitPos = (ballX - racketX) / racketWidth;
-      dx = (hitPos - 0.5) * 8;
-      score++;
-      scoreElem.innerText = score;
-      updateLevel();
-    }
-
-    if(ballY + ballRadius > canvas.height) {
-      lives--;
-      livesElem.innerText = lives;
-      if(lives <= 0){
-        gameOver = true;
-        status.innerText = "💥 Game Over !";
-        restartBtn.style.display = "inline-block";
-      } else {
-        resetBall();
-      }
-    }
-
-    spawnObstacle();
-    moveObstacles();
-    checkObstacleCollision();
-
-    requestAnimationFrame(draw);
-  }
-
-  restartBtn.addEventListener("click", () => {
-    score = 0;
-    lives = 3;
-    level = 1;
-    scoreElem.innerText = score;
-    livesElem.innerText = lives;
-    levelElem.innerText = level;
-    status.innerText = "";
-    obstacles.length = 0;
-    gameOver = false;
-    restartBtn.style.display = "none";
-    resetBall();
-    draw();
-  });
-
-  draw();
-});
+    ctx.fillRect(racketX, canvas.height - racketHeight - 10
