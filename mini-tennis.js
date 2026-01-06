@@ -8,14 +8,15 @@ document.addEventListener("DOMContentLoaded", function() {
   const status = document.getElementById('status');
   const restartBtn = document.getElementById('restart');
 
-  let racketWidth = 100;
+  // --- Raquette plus petite ---
+  let racketWidth = 60;  // réduit de 100 à 60
   let racketHeight = 12;
   let racketX = canvas.width/2 - racketWidth/2;
 
   let ballRadius = 10;
   let ballX = canvas.width/2;
   let ballY = canvas.height/2;
-  let baseSpeed = 5; // légèrement plus rapide
+  let baseSpeed = 4;
   let dx = baseSpeed;
   let dy = -baseSpeed;
 
@@ -24,10 +25,14 @@ document.addEventListener("DOMContentLoaded", function() {
   let level = 1;
   let gameOver = false;
 
-  const obstacles = [];
-  const obstacleWidth = 15;  // plus petits
-  const obstacleHeight = 15; // plus petits
-
+  // --- RAQUETTE ---
   function drawRacket() {
     ctx.fillStyle = "#fff";
-    ctx.fillRect(racketX, canvas.height - racketHeight - 10
+    ctx.fillRect(racketX, canvas.height - racketHeight - 10, racketWidth, racketHeight);
+  }
+
+  // --- BALLE ---
+  function drawBall() {
+    ctx.beginPath();
+    ctx.arc(ballX, ballY, ballRadius, 0, Math.PI*2);
+    ctx.fillStyle = "#FFD700";
