@@ -9,11 +9,11 @@ document.addEventListener("DOMContentLoaded", function() {
   const restartBtn = document.getElementById('restart');
 
   // --- Raquette plus petite ---
-  let racketWidth = 60;  // réduit de 100 à 60
+  let racketWidth = 40;  // réduit de 100 à 40
   let racketHeight = 12;
   let racketX = canvas.width/2 - racketWidth/2;
 
-  let ballRadius = 10;
+  let ballRadius = 8;
   let ballX = canvas.width/2;
   let ballY = canvas.height/2;
   let baseSpeed = 4;
@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", function() {
   let dy = -baseSpeed;
 
   let score = 0;
-  let lives = 3;
+  let lives = 5;
   let level = 1;
   let gameOver = false;
 
