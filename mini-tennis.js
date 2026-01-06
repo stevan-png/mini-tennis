@@ -25,8 +25,8 @@ document.addEventListener("DOMContentLoaded", function() {
   let gameOver = false;
 
   const obstacles = [];
-  const obstacleWidth = 30;
-  const obstacleHeight = 30;
+  const obstacleWidth = 10;
+  const obstacleHeight = 10;
 
   function drawRacket() {
     ctx.fillStyle = "#fff";
