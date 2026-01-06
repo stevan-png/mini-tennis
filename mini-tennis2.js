@@ -8,11 +8,11 @@ document.addEventListener("DOMContentLoaded", function() {
   const status = document.getElementById('status');
   const restartBtn = document.getElementById('restart');
 
-  let racketWidth = 60;  // plus petite
+  let racketWidth = 90;  // plus petite
   let racketHeight = 12;
   let racketX = canvas.width/2 - racketWidth/2;
 
-  let ballRadius = 10;
+  let ballRadius = 6;
   let ballX = canvas.width/2;
   let ballY = canvas.height/2;
   let baseSpeed = 4;
